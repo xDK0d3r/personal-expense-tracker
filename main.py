@@ -1,5 +1,18 @@
 # This file Handle user interaction and application flow.
 
+# import Storage
+import storage
+
+# DB Object Creation and calling
+database = storage.Database()
+database.initialize()
+
+# import Expense Manager
+import expense_manager
+
+manager = expense_manager.ExpenseManager(database)
+
+
 # Print Title
 title = """
            =====================================

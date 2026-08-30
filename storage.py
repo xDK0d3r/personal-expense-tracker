@@ -1,8 +1,9 @@
 # This file handles Database Operations.
 
+# import Sqlite
 import sqlite3
 
-class Database :
+class Database : 
     def __init__(self):
         self.connection = sqlite3.connect("expenses.db")
         self.cursor = self.connection.cursor()
@@ -34,9 +35,4 @@ class Database :
     # Function to Delete a specific Expense
     def delete_expense(self):
         pass
-
-
-# Temporary file db object creation and calling
-db = Database()
-db.initialize()
 
