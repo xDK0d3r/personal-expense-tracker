@@ -25,8 +25,11 @@ class Database :
 
 
     # Function to Insert a Expense
-    def insert_expense(self):
-        pass
+    def insert_expense(self,amount,category,description,date):
+        self.cursor.execute("""INSERT INTO expenses (amount,category,description,date)
+        VALUES (?,?,?,?)""",(amount,category,description,date))
+
+        self.connection.commit()
 
     # Function to Get all Expenses Details
     def get_expenses(self):

@@ -40,7 +40,13 @@ while True :
     match user_input :
         case 1 :
             print("Add Expense")
-            pass
+
+            amount = float(input("Please Enter Amount : "))
+            category = input("Please Enter Category : ")
+            description = input("Please Enter Description : ")
+            date = input("Please Enter Date (YYYY-MM-DD) : ")
+
+            manager.add_expense(amount,category,description,date)
         case 2 :
             print("View All Expense")
             pass
