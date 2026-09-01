@@ -40,7 +40,7 @@ while True :
     match user_input :
         case 1 :
             print("Add Expense")
-
+            print("---------------------------------")
             amount = float(input("Please Enter Amount : "))
             category = input("Please Enter Category : ")
             description = input("Please Enter Description : ")
@@ -49,7 +49,17 @@ while True :
             manager.add_expense(amount,category,description,date)
         case 2 :
             print("View All Expense")
-            pass
+
+            expenses = manager.view_expenses()
+
+            # unpack for UI
+            for id,amount,category,description,date in expenses :
+                print("-------------------------------")
+                print("id = ",id)
+                print("Amount = ",amount)
+                print("Category = ",category)
+                print("Description = ",description)
+                print("Date = ",date)
         case 3 :
             print("Delete Expense")
             pass

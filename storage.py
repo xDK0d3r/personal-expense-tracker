@@ -33,7 +33,9 @@ class Database :
 
     # Function to Get all Expenses Details
     def get_expenses(self):
-        pass
+        self.cursor.execute("SELECT * FROM expenses")
+        expenses = self.cursor.fetchall()
+        return expenses
 
     # Function to Delete a specific Expense
     def delete_expense(self):

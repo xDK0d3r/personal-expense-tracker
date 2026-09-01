@@ -12,7 +12,9 @@ class ExpenseManager :
 
     # View All Expenses Method
     def view_expenses(self):
-        pass
+        # call get method to retrive data
+        expenses = self.db.get_expenses()
+        return expenses
 
     # Delete Expense Method
     def delete_expense(self):
