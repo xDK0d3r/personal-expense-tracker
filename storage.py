@@ -38,6 +38,9 @@ class Database :
         return expenses
 
     # Function to Delete a specific Expense
-    def delete_expense(self):
-        pass
+    def delete_expense(self,expense_id):
+        self.cursor.execute("DELETE FROM expenses where id = ?",(expense_id,))
+
+        self.connection.commit()
+    
 

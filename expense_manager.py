@@ -17,6 +17,7 @@ class ExpenseManager :
         return expenses
 
     # Delete Expense Method
-    def delete_expense(self):
-        pass
-
+    def delete_expense(self,expense_id):
+        # call delete Method to delete Data
+        self.db.delete_expense(expense_id)
+        

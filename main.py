@@ -62,7 +62,11 @@ while True :
                 print("Date = ",date)
         case 3 :
             print("Delete Expense")
-            pass
+            print("-------------------------------")
+            expense_id = int(input("Which expense ID do you want to delete? : "))
+            
+            manager.delete_expense(expense_id)
+            print("Expense Deleted Successfully")
         case 4 :
             print("Exit")
             break
