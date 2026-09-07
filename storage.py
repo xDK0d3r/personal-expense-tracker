@@ -42,5 +42,22 @@ class Database :
         self.cursor.execute("DELETE FROM expenses where id = ?",(expense_id,))
 
         self.connection.commit()
-    
 
+    # Function to Modify Data
+    def edit_expense(self,expense_id,field,new_value,):
+       # edit based on field selection
+       if field == 1 :
+           self.cursor.execute("UPDATE expenses SET amount = ? WHERE id = ?",
+                               (new_value,expense_id))
+       elif field == 2 :
+           self.cursor.execute("UPDATE expenses SET category = ? WHERE id = ?",
+                                          (new_value,expense_id))
+       elif field == 3 :
+           self.cursor.execute("UPDATE expenses SET description = ? WHERE id = ?",
+                                          (new_value,expense_id))
+       else :
+           self.cursor.execute("UPDATE expenses SET date = ? WHERE id = ?",
+                                           (new_value,expense_id))
+
+       self.connection.commit()
+       print("Successfully Edited !")

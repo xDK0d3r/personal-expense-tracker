@@ -1,14 +1,12 @@
 # This file Handle user interaction and application flow.
 
-# import Storage
+# import Storage and Expense Manager
 import storage
+import expense_manager
 
 # DB Object Creation and calling
 database = storage.Database()
 database.initialize()
-
-# import Expense Manager
-import expense_manager
 
 manager = expense_manager.ExpenseManager(database)
 
@@ -27,8 +25,9 @@ def menu() :
     print("------------------")
     print("1.Add Expense")
     print("2.View All Expense")
-    print("3.Delete Expense")
-    print("4.Exit")
+    print("3.Edit Expense")
+    print("4.Delete Expense")
+    print("5.Exit")
 
 menu()
 
@@ -45,7 +44,6 @@ while True :
             category = input("Please Enter Category : ")
             description = input("Please Enter Description : ")
             date = input("Please Enter Date (YYYY-MM-DD) : ")
-
             manager.add_expense(amount,category,description,date)
         case 2 :
             print("View All Expense")
@@ -61,13 +59,40 @@ while True :
                 print("Description = ",description)
                 print("Date = ",date)
         case 3 :
+            print("Edit Expense")
+            print("-------------------------------")
+            expense_id = int(input("Which expense ID do you want to Edit ? : "))
+            print("""
+            Field  
+            1.Amount
+            2.Category
+            3.Description
+            4.Date
+            5.Cancel""")
+            field = int(input("Select Field to Modify ? :"))
+            match field :
+                case 1 :
+                    new_value = float(input("Please Enter New Amount : "))
+                case 2 :
+                    new_value = input("Please Enter New Category : ")
+                case 3 :
+                    new_value = input("Please Enter New Description : ")
+                case 4 :
+                    new_value = input("Please Enter New Date : ")
+                case 5 :
+                    print("Canceled !")
+                    break
+                case _ :
+                    print("Invalid Field Selection")
+            manager.edit_expense(expense_id,field,new_value)
+        case 4 :
             print("Delete Expense")
             print("-------------------------------")
-            expense_id = int(input("Which expense ID do you want to delete? : "))
+            expense_id = int(input("Which expense ID do you want to delete ? : "))
             
             manager.delete_expense(expense_id)
             print("Expense Deleted Successfully")
-        case 4 :
+        case 5 :
             print("Exit")
             break
         case _ :
