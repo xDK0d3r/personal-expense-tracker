@@ -33,15 +33,39 @@ menu()
 
 while True :
     # Getting User Input
-    user_input =int(input("Enter Your Option : "))
+    try :
+        user_input =int(input("Enter Your Option : "))
+    except ValueError :
+        print("Invalid Input ! Please Enter Valid Integers Only !")
+        continue
+
+     # Validation
+    if user_input not in [1,2,3,4,5] :
+        print("Invalid Option ! Please choose valid Option !")
 
     # Controlflow
     match user_input :
         case 1 :
             print("Add Expense")
             print("---------------------------------")
-            amount = float(input("Please Enter Amount : "))
+
+            while True :    
+                try :
+                 amount = float(input("Please Enter Amount : "))
+                except ValueError :
+                 print("Invalid Input ! Please Try Again !")
+                 continue
+
+                # validation
+                if amount <= 0 :
+                 print("Amount must be greater than 0")
+                 continue
+
+                break            
+
+          
             category = input("Please Enter Category : ")
+            
             description = input("Please Enter Description : ")
             date = input("Please Enter Date (YYYY-MM-DD) : ")
             manager.add_expense(amount,category,description,date)
@@ -93,7 +117,5 @@ while True :
             manager.delete_expense(expense_id)
             print("Expense Deleted Successfully")
         case 5 :
-            print("Exit")
+            print("Exit !")
             break
-        case _ :
-            print("Invalid Option")
