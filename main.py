@@ -1,8 +1,9 @@
 # This file Handle user interaction and application flow.
 
-# import Storage and Expense Manager
+# import Storage and Expense Manager and datetime
 import storage
 import expense_manager
+from datetime import datetime
 
 # DB Object Creation and calling
 database = storage.Database()
@@ -28,6 +29,7 @@ def menu() :
     print("3.Edit Expense")
     print("4.Delete Expense")
     print("5.Exit")
+    print("------------------")
 
 menu()
 
@@ -39,13 +41,14 @@ while True :
         print("Invalid Input ! Please Enter Valid Integers Only !")
         continue
 
-     # Validation
+    # Validation
     if user_input not in [1,2,3,4,5] :
         print("Invalid Option ! Please choose valid Option !")
 
     # Controlflow
     match user_input :
         case 1 :
+            print("---------------------------------")
             print("Add Expense")
             print("---------------------------------")
 
@@ -63,13 +66,60 @@ while True :
 
                 break            
 
-          
-            category = input("Please Enter Category : ")
-            
-            description = input("Please Enter Description : ")
-            date = input("Please Enter Date (YYYY-MM-DD) : ")
+            # Category choice
+            categories = {
+                1 : "Food",
+                2 : "Travel",
+                3 : "Bills",
+                4 : "Shopping",
+                5 : "Other"
+                }
+
+            while True :
+              print("""
+              -----------------
+              Categories
+              -----------------
+               1.Food
+               2.Travel
+               3.Bills
+               4.Shopping
+               5.Other
+              -----------------""")
+
+              try :
+                category_option = int(input("Please Select Category : "))
+              except ValueError :
+                print("Invalid Input ! Please Enter Valid Integers Only !")
+                continue
+
+              # Validation
+              if category_option not in [1,2,3,4,5] :
+                print("Invalid Option ! Please choose valid Option !")
+                continue
+
+              # Mapping
+              category = categories[category_option]
+              break
+
+            # Description
+            description_input = input("Please Enter Description : ")
+            description = description_input.strip()
+
+            # Date
+            while True:
+             try:
+              date = input("Please Enter Date (YYYY-MM-DD) : ")
+              datetime.strptime(date, "%Y-%m-%d")
+             except ValueError:
+              print("Invalid Date! Please use YYYY-MM-DD.")
+              continue
+
+             break
+
             manager.add_expense(amount,category,description,date)
         case 2 :
+            print("-------------------------------")
             print("View All Expense")
 
             expenses = manager.view_expenses()
@@ -83,16 +133,20 @@ while True :
                 print("Description = ",description)
                 print("Date = ",date)
         case 3 :
+            print("-------------------------------")
             print("Edit Expense")
             print("-------------------------------")
             expense_id = int(input("Which expense ID do you want to Edit ? : "))
             print("""
-            Field  
+            ----------------- 
+            Field
+            ----------------- 
             1.Amount
             2.Category
             3.Description
             4.Date
-            5.Cancel""")
+            5.Cancel
+            -----------------""")
             field = int(input("Select Field to Modify ? :"))
             match field :
                 case 1 :
@@ -110,6 +164,7 @@ while True :
                     print("Invalid Field Selection")
             manager.edit_expense(expense_id,field,new_value)
         case 4 :
+            print("-------------------------------")
             print("Delete Expense")
             print("-------------------------------")
             expense_id = int(input("Which expense ID do you want to delete ? : "))
