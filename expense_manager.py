@@ -19,7 +19,7 @@ class ExpenseManager :
     # Delete Expense Method 
     def delete_expense(self,expense_id):
         # call delete Method to delete Data
-        self.db.delete_expense(expense_id)
+        return self.db.delete_expense(expense_id)
 
     # Edit Expense Method
     def edit_expense(self,expense_id,field,new_value):

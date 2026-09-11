@@ -103,7 +103,7 @@ while True :
               break
 
             # Description
-            description_input = input("Please Enter Description : ")
+            description_input = input("Please Enter Description (optional) : ")
             description = description_input.strip()
 
             # Date
@@ -167,10 +167,27 @@ while True :
             print("-------------------------------")
             print("Delete Expense")
             print("-------------------------------")
-            expense_id = int(input("Which expense ID do you want to delete ? : "))
-            
-            manager.delete_expense(expense_id)
-            print("Expense Deleted Successfully")
+
+            while True :
+               
+             try:
+                expense_id = int(input("Which expense ID do you want to delete ? : "))
+             except ValueError :
+                print("Invalid Input ! Please Enter Valid Integers Only ! ")
+                continue
+
+             # Validation
+             if expense_id <= 0:
+                print("ID must be greater than 0 ")
+                continue
+             break
+
+            result = manager.delete_expense(expense_id)
+
+            if result == 1:
+               print("Expense Deleted Successfully")
+            else :
+               print("ID not Found !")
         case 5 :
             print("Exit !")
             break

@@ -43,6 +43,8 @@ class Database :
 
         self.connection.commit()
 
+        return self.cursor.rowcount
+
     # Function to Modify Data
     def edit_expense(self,expense_id,field,new_value,):
        # edit based on field selection
