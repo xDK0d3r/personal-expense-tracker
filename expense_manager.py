@@ -24,4 +24,4 @@ class ExpenseManager :
     # Edit Expense Method
     def edit_expense(self,expense_id,field,new_value):
         #call edit expense method to modify data
-        self.db.edit_expense(expense_id,field,new_value)
+        return self.db.edit_expense(expense_id,field,new_value)

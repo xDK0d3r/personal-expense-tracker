@@ -62,4 +62,5 @@ class Database :
                                            (new_value,expense_id))
 
        self.connection.commit()
-       print("Successfully Edited !")
+
+       return self.cursor.rowcount

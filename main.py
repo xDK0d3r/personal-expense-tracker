@@ -33,6 +33,15 @@ def menu() :
 
 menu()
 
+ # Category choice - Global scope
+categories = {
+    1 : "Food",
+    2 : "Travel",
+    3 : "Bills",
+    4 : "Shopping",
+    5 : "Other"
+ }
+
 while True :
     # Getting User Input
     try :
@@ -65,16 +74,7 @@ while True :
                  continue
 
                 break            
-
-            # Category choice
-            categories = {
-                1 : "Food",
-                2 : "Travel",
-                3 : "Bills",
-                4 : "Shopping",
-                5 : "Other"
-                }
-
+           
             while True :
               print("""
               -----------------
@@ -136,7 +136,20 @@ while True :
             print("-------------------------------")
             print("Edit Expense")
             print("-------------------------------")
-            expense_id = int(input("Which expense ID do you want to Edit ? : "))
+            
+            while True:
+              try:
+                expense_id = int(input("Which expense ID do you want to Edit ? : "))
+              except ValueError :
+                print("Invalid Input ! Please Enter Valid Integers Only ! ")
+                continue
+              
+             # Validation
+              if expense_id <= 0:
+               print("ID must be greater than 0 ")
+               continue
+              break
+       
             print("""
             ----------------- 
             Field
@@ -147,22 +160,83 @@ while True :
             4.Date
             5.Cancel
             -----------------""")
-            field = int(input("Select Field to Modify ? :"))
+            while True:
+             try:
+              field = int(input("Select Field to Modify ? : "))
+             except ValueError:
+              print("Invalid Input! Please enter a valid integer.")
+              continue
+
+             if field not in [1, 2, 3, 4, 5]:
+              print("Invalid Field Selection!")
+              continue
+
+             break
+
             match field :
                 case 1 :
-                    new_value = float(input("Please Enter New Amount : "))
+                   while True :    
+                     try :
+                      new_value = float(input("Please Enter Amount : "))
+                     except ValueError :
+                      print("Invalid Input ! Please Try Again !")
+                      continue
+                   
+                     # validation
+                     if new_value <= 0 :
+                         print("Amount must be greater than 0")
+                         continue
+
+                     break               
                 case 2 :
-                    new_value = input("Please Enter New Category : ")
+                  while True :
+                     print("""
+                     -----------------
+                     Categories
+                     -----------------
+                      1.Food
+                      2.Travel
+                      3.Bills
+                      4.Shopping
+                      5.Other
+                     -----------------""")
+                  
+                     try :
+                      category_option = int(input("Please Select Category : "))
+                     except ValueError :
+                      print("Invalid Input ! Please Enter Valid Integers Only !")
+                      continue
+                  
+                      # Validation
+                     if category_option not in [1,2,3,4,5] :
+                      print("Invalid Option ! Please choose valid Option !")
+                      continue
+                  
+                      # Mapping
+                     new_value = categories[category_option]
+                     break
                 case 3 :
-                    new_value = input("Please Enter New Description : ")
+                    description_input = input("Please Enter Description (optional) : ")
+                    new_value = description_input.strip()
                 case 4 :
-                    new_value = input("Please Enter New Date : ")
+                    while True:
+                     try:
+                      new_value = input("Please Enter Date (YYYY-MM-DD) : ")
+                      datetime.strptime(new_value, "%Y-%m-%d")
+                     except ValueError:
+                      print("Invalid Date! Please use YYYY-MM-DD.")
+                      continue
+                     break
                 case 5 :
                     print("Canceled !")
                     break
-                case _ :
-                    print("Invalid Field Selection")
-            manager.edit_expense(expense_id,field,new_value)
+               
+            result = manager.edit_expense(expense_id,field,new_value)
+
+            if result == 1:
+              print("Expense Edited Successfully")
+            else :
+              print("ID not Found !")
         case 4 :
             print("-------------------------------")
             print("Delete Expense")
